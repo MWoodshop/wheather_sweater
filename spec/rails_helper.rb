@@ -27,7 +27,9 @@ require 'rspec/rails'
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
+  # :nocov:
   abort e.to_s.strip
+  # :nocov:
 end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -62,8 +64,17 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   # VCR Configuration
+  require 'vcr'
+  require 'base64'
+
   VCR.configure do |config|
-    config.cassette_library_dir = 'fixtures/vcr_cassettes'
+    config.cassette_library_dir = 'spec/cassettes'
     config.hook_into :webmock
+    config.default_cassette_options = { serialize_with: :json }
+    # config.before_record do |interaction|
+    #   if interaction.response.body.encoding.name == 'ASCII-8BIT'
+    #     interaction.response.body = Base64.decode64(interaction.response.body)
+    #   end
+    # end
   end
 end
