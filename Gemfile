@@ -51,6 +51,8 @@ group :development, :test do
   gem "vcr"
   gem "webmock"
   gem "faraday"
+  gem 'simplecov', require: false
+
 end
 
 group :development do
