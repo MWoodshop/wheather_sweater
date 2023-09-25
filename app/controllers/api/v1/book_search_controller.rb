@@ -5,7 +5,6 @@ module Api
         location = params[:location]
         quantity = params[:quantity].to_i
 
-        # Graceful non-ASCII character error handling
         if location =~ /[^[:ascii:]]/
           render json: { error: 'Invalid location' }, status: 400
           return
@@ -17,6 +16,11 @@ module Api
         end
 
         coordinates = get_coordinates(location)
+
+        if coordinates.is_a?(Hash) && coordinates[:error]
+          render json: { error: 'Service Unavailable' }, status: 500
+          return
+        end
 
         if coordinates
           weather_data = get_weather(coordinates)
@@ -50,6 +54,8 @@ module Api
         longitude = json.dig('results', 0, 'locations', 0, 'latLng', 'lng')
 
         latitude && longitude ? { latitude:, longitude: } : nil
+      rescue Faraday::ConnectionFailed => e
+        { error: 'Service Unavailable' }
       end
 
       def get_weather(coordinates)
@@ -62,9 +68,7 @@ module Api
           temperature: "#{json['current']['temp_f']} F"
         }
 
-        {
-          current_weather:
-        }
+        { current_weather: }
       end
 
       def get_books(location, quantity)
