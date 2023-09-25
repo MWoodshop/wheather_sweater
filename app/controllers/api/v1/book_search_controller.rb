@@ -3,6 +3,13 @@ module Api
     class BookSearchController < ApplicationController
       def show
         location = params[:location]
+
+        # Graceful non-ASCII character error handling
+        if location =~ /[^[:ascii:]]/
+          render json: { error: 'Invalid location' }, status: 400
+          return
+        end
+
         coordinates = get_coordinates(location)
 
         if coordinates
