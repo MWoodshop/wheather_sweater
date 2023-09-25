@@ -1,31 +1,23 @@
-require 'cgi'
-require 'net/http'
-require 'json'
-
 module Api
   module V1
     class BookSearchController < ApplicationController
       def show
         location = params[:location]
-        quantity = params[:quantity].to_i
-
         coordinates = get_coordinates(location)
+
         if coordinates
           weather_data = get_weather(coordinates)
-          books = get_books(location, quantity)
+          book_data = get_books(location)
 
           render json: {
             data: {
-              id: 'null',
+              id: nil,
               type: 'books',
               attributes: {
                 destination: location,
-                forecast: {
-                  summary: weather_data[:conditions],
-                  temperature: "#{weather_data[:temperature]} F"
-                },
-                total_books_found: books[:total],
-                books: books[:list]
+                forecast: weather_data[:current_weather],
+                total_books_found: book_data.length,
+                books: book_data
               }
             }
           }
@@ -35,23 +27,6 @@ module Api
       end
 
       private
-
-      def get_books(location, quantity)
-        conn = Faraday.new(url: 'https://openlibrary.org')
-        response = conn.get("/search.json?q=#{CGI.escape(location)}")
-        json = JSON.parse(response.body)
-
-        books = []
-        json['docs'].first(quantity).each do |doc|
-          books << {
-            isbn: doc['isbn'],
-            title: doc['title'],
-            publisher: doc['publisher']
-          }
-        end
-
-        { total: json['num_found'], list: books }
-      end
 
       def get_coordinates(location)
         conn = Faraday.new(url: 'http://www.mapquestapi.com')
@@ -70,44 +45,38 @@ module Api
         json = JSON.parse(response.body)
 
         current_weather = {
-          last_updated: json['current']['last_updated'],
-          temperature: json['current']['temp_f'],
-          feels_like: json['current']['feelslike_f'],
-          humidity: json['current']['humidity'],
-          uvi: json['current']['uv'],
-          visibility: json['current']['vis_miles'],
-          conditions: json['current']['condition']['text'],
-          icon: json['current']['condition']['icon']
+          summary: json['current']['condition']['text'],
+          temperature: "#{json['current']['temp_f']} F"
         }
-
-        daily_weather = json['forecast']['forecastday'].map do |day|
-          {
-            date: day['date'],
-            sunrise: day['astro']['sunrise'],
-            sunset: day['astro']['sunset'],
-            max_temp: day['day']['maxtemp_f'],
-            min_temp: day['day']['mintemp_f'],
-            conditions: day['day']['condition']['text'],
-            icon: day['day']['condition']['icon']
-          }
-        end
-
-        hourly_weather = json['forecast']['forecastday'][0]['hour'].map do |hour|
-          {
-            time: hour['time'][11, 5],
-            temperature: hour['temp_f'],
-            conditions: hour['condition']['text'],
-            icon: hour['condition']['icon']
-          }
-        end
 
         {
-          current_weather:,
-          daily_weather:,
-          hourly_weather:,
-          latitude: coordinates[:latitude],
-          longitude: coordinates[:longitude]
+          current_weather:
         }
+      end
+
+      def get_books(location)
+        conn = Faraday.new(url: 'https://openlibrary.org')
+        all_books = []
+        offset = 0
+        limit = 100
+
+        loop do
+          response = conn.get("/search.json?q=#{location}&offset=#{offset}&limit=#{limit}")
+          json = JSON.parse(response.body)
+
+          break if json['docs'].empty?
+
+          all_books += json['docs'].map do |doc|
+            {
+              isbn: doc['isbn'],
+              title: doc['title']
+            }
+          end
+
+          offset += limit
+        end
+
+        all_books
       end
     end
   end
