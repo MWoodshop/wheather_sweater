@@ -3,6 +3,7 @@ module Api
     class BookSearchController < ApplicationController
       def show
         location = params[:location]
+        quantity = params[:quantity].to_i
 
         # Graceful non-ASCII character error handling
         if location =~ /[^[:ascii:]]/
@@ -10,11 +11,16 @@ module Api
           return
         end
 
+        if quantity <= 0
+          render json: { error: 'Invalid quantity' }, status: 400
+          return
+        end
+
         coordinates = get_coordinates(location)
 
         if coordinates
           weather_data = get_weather(coordinates)
-          book_data = get_books(location)
+          book_data = get_books(location, quantity)
 
           render json: {
             data: {
@@ -61,11 +67,11 @@ module Api
         }
       end
 
-      def get_books(location)
+      def get_books(location, quantity)
         conn = Faraday.new(url: 'https://openlibrary.org')
         all_books = []
         offset = 0
-        limit = 100
+        limit = quantity
 
         loop do
           response = conn.get("/search.json?q=#{location}&offset=#{offset}&limit=#{limit}")
@@ -81,9 +87,10 @@ module Api
           end
 
           offset += limit
+          break if all_books.length >= quantity
         end
 
-        all_books
+        all_books.first(quantity)
       end
     end
   end
