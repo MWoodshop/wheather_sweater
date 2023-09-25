@@ -27,7 +27,7 @@
         },
         "headers": {
           "Date": [
-            "Mon, 25 Sep 2023 16:41:16 GMT"
+            "Mon, 25 Sep 2023 17:13:40 GMT"
           ],
           "Content-Type": [
             "application/json; charset=utf-8"
@@ -42,22 +42,22 @@
             "15000"
           ],
           "X-Ratelimit-Remaining-2628000": [
-            "14902"
+            "14885"
           ],
           "Ratelimit-Limit": [
             "15000"
           ],
           "Ratelimit-Remaining": [
-            "14902"
+            "14885"
           ],
           "Ratelimit-Reset": [
-            "2027924"
+            "2025980"
           ],
           "X-Powered-By": [
             "MapQuest"
           ],
           "X-Request-Id": [
-            "587d6520-5bc2-11ee-991f-9bcc38e71990"
+            "dfa7ea80-5bc6-11ee-a2c4-c9296154ad5a"
           ],
           "Access-Control-Allow-Origin": [
             "*"
@@ -71,7 +71,7 @@
           "string": "{\"info\":{\"statuscode\":400,\"copyright\":{\"text\":\"© 2023 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"imageAltText\":\"© 2023 MapQuest, Inc.\"},\"messages\":[\"Illegal argument from request: Insufficient info for location\"]},\"options\":{\"maxResults\":-1,\"ignoreLatLngInput\":false},\"results\":[{\"providedLocation\":{},\"locations\":[]}]}"
         }
       },
-      "recorded_at": "Mon, 25 Sep 2023 16:41:16 GMT"
+      "recorded_at": "Mon, 25 Sep 2023 17:13:40 GMT"
     }
   ],
   "recorded_with": "VCR 6.2.0"
