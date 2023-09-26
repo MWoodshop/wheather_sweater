@@ -6,7 +6,6 @@ RSpec.describe GeocodingService do
       it 'returns a Coordinates object with latitude and longitude' do
         VCR.use_cassette('mapquest_cincinnati_geocoding_service') do
           coordinates = GeocodingService.get_coordinates('cincinnati,oh')
-          puts coordinates.inspect
 
           expect(coordinates).to be_a(Coordinates)
           expect(coordinates.latitude).to be_present

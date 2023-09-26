@@ -1,24 +1,68 @@
-# README
+# Project Name
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Wheather, Sweater!
 
-Things you may want to cover:
+## Learning Goals
 
-* Ruby version
+- Access two third party APIs at one time and gather only the needed results.
+- Implement user registration and login.
+- Implement a "Road Trip" concept to determine weather based on driving distance.
 
-* System dependencies
+## Setup
 
-* Configuration
+1. Clone the repository.
+2. Run`bundle install`.
+3. Run`rails db:migrate`.
 
-* Database creation
+## API Keys
 
-* Database initialization
+You can get your own API keys by:
 
-* How to run the test suite
+1. Signing up at MapQuest [here](https://developer.mapquest.com/user/login/sign-up).
+2. Signing up at WeatherAPI [here](https://www.weatherapi.com/signup.aspx).
 
-* Services (job queues, cache servers, search engines, etc.)
+## Happy Path Endpoints
 
-* Deployment instructions
+- Retrieve Weather for a City:
+  ```
+  GET /api/v0/forecast?location=cincinatti,oh
+  Content-Type: application/json
+  Accept: application/json
+  ```
+- Register a New User:
+  ```
+  POST /api/v0/users
+  Content-Type: application/json
+  Accept: application/json
 
-* ...
+  {
+    "email": "whatever@example.com",
+    "password": "password",
+    "password_confirmation": "password"
+  }
+  ```
+- Login:
+  ```
+  POST /api/v0/sessions
+  Content-Type: application/json
+  Accept: application/json
+
+  {
+    "email": "whatever@example.com",
+    "password": "password"
+  }
+  ```
+- Road Trip:
+  ```
+  POST /api/v0/road_trip
+  Content-Type: application/json
+  Accept: application/json
+
+  body:
+
+  {
+    "origin": "Cincinatti,OH",
+    "destination": "Chicago,IL",
+    "api_key": "t1h2i3s4_i5s6_l7e8g9i10t11"
+  }
+  ```
