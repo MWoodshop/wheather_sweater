@@ -38,6 +38,3 @@
 # Coverage
 /coverage/
 .DS_Store
-
-# Cassettes
-/spec/cassettes
