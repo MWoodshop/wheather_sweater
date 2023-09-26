@@ -3,7 +3,7 @@
     {
       "request": {
         "method": "get",
-        "uri": "http://www.mapquestapi.com/geocoding/v1/address?key=7O2jSK4SDhZcBdK1ngKWKyhCMMgnCjAT&location=",
+        "uri": "http://www.mapquestapi.com/geocoding/v1/address?key=7O2jSK4SDhZcBdK1ngKWKyhCMMgnCjAT&location=cincinnati,oh",
         "body": {
           "encoding": "US-ASCII",
           "string": ""
@@ -27,13 +27,13 @@
         },
         "headers": {
           "Date": [
-            "Sun, 24 Sep 2023 19:59:16 GMT"
+            "Tue, 26 Sep 2023 20:37:24 GMT"
           ],
           "Content-Type": [
             "application/json; charset=utf-8"
           ],
           "Content-Length": [
-            "344"
+            "805"
           ],
           "Connection": [
             "keep-alive"
@@ -42,36 +42,36 @@
             "15000"
           ],
           "X-Ratelimit-Remaining-2628000": [
-            "14985"
+            "14835"
           ],
           "Ratelimit-Limit": [
             "15000"
           ],
           "Ratelimit-Remaining": [
-            "14985"
+            "14835"
           ],
           "Ratelimit-Reset": [
-            "2102444"
+            "1927356"
           ],
           "X-Powered-By": [
             "MapQuest"
           ],
           "X-Request-Id": [
-            "d76b48b0-5b14-11ee-adf1-b7e009f9aba8"
+            "7fbce440-5cac-11ee-9fc7-43cbbd395460"
           ],
           "Access-Control-Allow-Origin": [
             "*"
           ],
           "Etag": [
-            "W/\"158-SDl5fNi22x9FSEkVOXJ4rQPLABU\""
+            "W/\"325-G+A865ASfmDXwydXDsNkzu/Qqgs\""
           ]
         },
         "body": {
           "encoding": "ASCII-8BIT",
-          "string": "{\"info\":{\"statuscode\":400,\"copyright\":{\"text\":\"© 2023 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"imageAltText\":\"© 2023 MapQuest, Inc.\"},\"messages\":[\"Illegal argument from request: Insufficient info for location\"]},\"options\":{\"maxResults\":-1,\"ignoreLatLngInput\":false},\"results\":[{\"providedLocation\":{},\"locations\":[]}]}"
+          "string": "{\"info\":{\"statuscode\":0,\"copyright\":{\"text\":\"© 2023 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"imageAltText\":\"© 2023 MapQuest, Inc.\"},\"messages\":[]},\"options\":{\"maxResults\":-1,\"ignoreLatLngInput\":false},\"results\":[{\"providedLocation\":{\"location\":\"cincinnati,oh\"},\"locations\":[{\"street\":\"\",\"adminArea6\":\"\",\"adminArea6Type\":\"Neighborhood\",\"adminArea5\":\"Cincinnati\",\"adminArea5Type\":\"City\",\"adminArea4\":\"Hamilton\",\"adminArea4Type\":\"County\",\"adminArea3\":\"OH\",\"adminArea3Type\":\"State\",\"adminArea1\":\"US\",\"adminArea1Type\":\"Country\",\"postalCode\":\"\",\"geocodeQualityCode\":\"A5XAX\",\"geocodeQuality\":\"CITY\",\"dragPoint\":false,\"sideOfStreet\":\"N\",\"linkId\":\"0\",\"unknownInput\":\"\",\"type\":\"s\",\"latLng\":{\"lat\":39.10713,\"lng\":-84.50413},\"displayLatLng\":{\"lat\":39.10713,\"lng\":-84.50413},\"mapUrl\":\"\"}]}]}"
         }
       },
-      "recorded_at": "Sun, 24 Sep 2023 19:59:16 GMT"
+      "recorded_at": "Tue, 26 Sep 2023 20:37:24 GMT"
     }
   ],
   "recorded_with": "VCR 6.2.0"

@@ -1,0 +1,99 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "http://api.weatherapi.com/v1/forecast.json?key=f00e4c216c8d417b86c181129232409&q=9999,9999",
+        "body": {
+          "encoding": "US-ASCII",
+          "string": ""
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.7.11"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 400,
+          "message": "Bad Request"
+        },
+        "headers": {
+          "Date": [
+            "Tue, 26 Sep 2023 20:29:34 GMT"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Content-Length": [
+            "63"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "Server": [
+            "BunnyCDN-IL1-1068"
+          ],
+          "Cdn-Pullzone": [
+            "93447"
+          ],
+          "Cdn-Uid": [
+            "8fa3a04a-75d9-4707-8056-b7b33c8ac7fe"
+          ],
+          "Cdn-Requestcountrycode": [
+            "US"
+          ],
+          "Age": [
+            "0"
+          ],
+          "Cache-Control": [
+            "public, max-age=5"
+          ],
+          "Via": [
+            "1.1 varnish (Varnish/6.0)"
+          ],
+          "X-Varnish": [
+            "611518366"
+          ],
+          "Cdn-Proxyver": [
+            "1.04"
+          ],
+          "Cdn-Requestpullsuccess": [
+            "True"
+          ],
+          "Cdn-Requestpullcode": [
+            "400"
+          ],
+          "Cdn-Cachedat": [
+            "09/26/2023 20:29:34"
+          ],
+          "Cdn-Edgestorageid": [
+            "871"
+          ],
+          "Cdn-Status": [
+            "400"
+          ],
+          "Cdn-Requestid": [
+            "bd7e37728095474ce07d824173a46df9"
+          ],
+          "Cdn-Cache": [
+            "MISS"
+          ]
+        },
+        "body": {
+          "encoding": "UTF-8",
+          "string": "{\"error\":{\"code\":1006,\"message\":\"No matching location found.\"}}"
+        }
+      },
+      "recorded_at": "Tue, 26 Sep 2023 20:29:34 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}

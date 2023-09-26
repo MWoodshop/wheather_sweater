@@ -1,0 +1,78 @@
+{
+  "http_interactions": [
+    {
+      "request": {
+        "method": "get",
+        "uri": "http://www.mapquestapi.com/geocoding/v1/address?key=7O2jSK4SDhZcBdK1ngKWKyhCMMgnCjAT&location=invalid_location",
+        "body": {
+          "encoding": "US-ASCII",
+          "string": ""
+        },
+        "headers": {
+          "User-Agent": [
+            "Faraday v2.7.11"
+          ],
+          "Accept-Encoding": [
+            "gzip;q=1.0,deflate;q=0.6,identity;q=0.3"
+          ],
+          "Accept": [
+            "*/*"
+          ]
+        }
+      },
+      "response": {
+        "status": {
+          "code": 200,
+          "message": "OK"
+        },
+        "headers": {
+          "Date": [
+            "Tue, 26 Sep 2023 20:37:24 GMT"
+          ],
+          "Content-Type": [
+            "application/json; charset=utf-8"
+          ],
+          "Content-Length": [
+            "677"
+          ],
+          "Connection": [
+            "keep-alive"
+          ],
+          "X-Ratelimit-Limit-2628000": [
+            "15000"
+          ],
+          "X-Ratelimit-Remaining-2628000": [
+            "14836"
+          ],
+          "Ratelimit-Limit": [
+            "15000"
+          ],
+          "Ratelimit-Remaining": [
+            "14836"
+          ],
+          "Ratelimit-Reset": [
+            "1927356"
+          ],
+          "X-Powered-By": [
+            "MapQuest"
+          ],
+          "X-Request-Id": [
+            "7fc8f230-5cac-11ee-b237-8fb5f88d83d8"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Etag": [
+            "W/\"2a5-FFTBLptzwcFkjdDxM0uHymto6sg\""
+          ]
+        },
+        "body": {
+          "encoding": "ASCII-8BIT",
+          "string": "{\"info\":{\"statuscode\":0,\"copyright\":{\"text\":\"© 2023 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"imageAltText\":\"© 2023 MapQuest, Inc.\"},\"messages\":[]},\"options\":{\"maxResults\":-1,\"ignoreLatLngInput\":false},\"results\":[{\"providedLocation\":{\"location\":\"invalid_location\"},\"locations\":[{\"street\":\"\",\"adminArea6\":\"\",\"adminArea5\":\"\",\"adminArea4\":\"\",\"adminArea3\":\"\",\"adminArea1\":\"US\",\"postalCode\":\"\",\"geocodeQualityCode\":\"A1XAX\",\"geocodeQuality\":\"COUNTRY\",\"dragPoint\":false,\"sideOfStreet\":\"N\",\"linkId\":\"0\",\"unknownInput\":\"\",\"type\":\"s\",\"latLng\":{\"lat\":38.89037,\"lng\":-77.03196},\"displayLatLng\":{\"lat\":38.89037,\"lng\":-77.03196},\"mapUrl\":\"\",\"source\":\"FALLBACK\"}]}]}"
+        }
+      },
+      "recorded_at": "Tue, 26 Sep 2023 20:37:24 GMT"
+    }
+  ],
+  "recorded_with": "VCR 6.2.0"
+}
