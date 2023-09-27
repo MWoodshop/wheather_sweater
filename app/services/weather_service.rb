@@ -3,17 +3,22 @@ class WeatherService
     return nil unless eta
 
     conn = Faraday.new(url: 'http://api.weatherapi.com')
-    response = conn.get("/v1/forecast.json?key=#{ENV['WEATHER_API_KEY']}&q=#{coordinates.latitude},#{coordinates.longitude}")
+    response = conn.get("/v1/forecast.json?key=#{ENV['WEATHER_API_KEY']}&q=#{coordinates.latitude},#{coordinates.longitude}&days=14")
     json = JSON.parse(response.body)
 
-    arrival_time = Time.now + eta.seconds  # Assuming eta is in seconds
-    puts "Debugging current time: #{Time.now}"
-    puts "Debugging arrival_time: #{arrival_time}"
+    arrival_time = Time.now + eta.seconds
+    arrival_date_str = arrival_time.strftime('%Y-%m-%d')
 
-    json['forecast']['forecastday'][0]['hour'].min_by do |hour|
-      diff = (Time.parse(hour['time']) - arrival_time).abs
-      puts "Debugging time difference: #{diff}, hour: #{hour['time']}, arrival_time: #{arrival_time}"
-      diff
+    forecast_for_arrival = json['forecast']['forecastday'].find do |forecastday|
+      forecastday['date'] == arrival_date_str
     end
+
+    return unless forecast_for_arrival
+
+    forecast_for_arrival['hour'].min_by do |hour|
+      (Time.parse(hour['time']) - arrival_time).abs
+    end
+
+    # Return closest hour to the RoadTripsController
   end
 end
