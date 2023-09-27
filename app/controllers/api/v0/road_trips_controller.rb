@@ -10,8 +10,8 @@ module Api
         travel_info = GeocodingService.fetch_directions(origin, destination)
         puts "Debugging travel_info: #{travel_info.inspect}"
 
-        if travel_info['route'] && travel_info['route']['impossible']
-          render json: { error: 'Impossible route' }, status: 400
+        if travel_info.dig('route', 'routeError', 'errorCode') == 2
+          render json: { error: 'Impossible route' }, status: 402
           return
         end
 
