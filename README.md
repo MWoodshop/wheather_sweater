@@ -5,8 +5,14 @@ Wheather, Sweater!
 ## Learning Goals
 
 - Access two third party APIs at one time and gather only the needed results.
+- Access the latitude and longitude of a city and state and pass that on to gather:
+  - The current weather conditions.
+  - The daily weather forecast.
+  - The hourly weather forecast.
 - Implement user registration and login.
-- Implement a "Road Trip" concept to determine weather based on driving distance.
+- Implement a "Road Trip" concept to determine:
+  - Current time to drive from origin to destination.
+  - Weather at estimated arrival time.
 
 ## Setup
 
