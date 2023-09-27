@@ -12,8 +12,7 @@ RSpec.describe Api::V0::ForecastsController, type: :controller do
           json_response = JSON.parse(response.body, symbolize_names: true)
           expect(json_response[:data][:attributes]).to include(
             :current_weather,
-            :daily_weather,
-            :hourly_weather,
+            :weather_at_eta,
             :latitude,
             :longitude
           )
