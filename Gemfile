@@ -52,6 +52,7 @@ group :development, :test do
   gem "webmock"
   gem "faraday"
   gem 'simplecov', require: false
+  gem 'factory_bot_rails'
 
 end
 
@@ -59,4 +60,3 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
-
