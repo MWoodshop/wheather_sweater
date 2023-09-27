@@ -71,6 +71,9 @@ RSpec.configure do |config|
     config.cassette_library_dir = 'spec/cassettes'
     config.hook_into :webmock
     config.default_cassette_options = { serialize_with: :json }
+    config.ignore_request do |request|
+      URI(request.uri).host == 'www.mapquestapi.com'
+    end
     # config.before_record do |interaction|
     #   if interaction.response.body.encoding.name == 'ASCII-8BIT'
     #     interaction.response.body = Base64.decode64(interaction.response.body)

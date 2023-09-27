@@ -1,10 +1,10 @@
 class WeatherService
-  def self.get_weather(coordinates)
+  # Get current weather
+  def self.get_current_weather(coordinates)
     conn = Faraday.new(url: 'http://api.weatherapi.com')
-    response = conn.get("/v1/forecast.json?key=#{ENV['WEATHER_API_KEY']}&q=#{coordinates.latitude},#{coordinates.longitude}")
+    response = conn.get("/v1/current.json?key=#{ENV['WEATHER_API_KEY']}&q=#{coordinates.latitude},#{coordinates.longitude}")
     json = JSON.parse(response.body)
-
-    current_weather = {
+    {
       last_updated: json['current']['last_updated'],
       temperature: json['current']['temp_f'],
       feels_like: json['current']['feelslike_f'],
@@ -14,8 +14,35 @@ class WeatherService
       conditions: json['current']['condition']['text'],
       icon: json['current']['condition']['icon']
     }
+  end
 
-    daily_weather = json['forecast']['forecastday'].map do |day|
+  def self.get_weather_at_eta(coordinates, eta)
+    return nil unless eta
+
+    conn = Faraday.new(url: 'http://api.weatherapi.com')
+    response = conn.get("/v1/forecast.json?key=#{ENV['WEATHER_API_KEY']}&q=#{coordinates.latitude},#{coordinates.longitude}&days=14")
+    json = JSON.parse(response.body)
+
+    arrival_time = Time.now + eta.seconds
+    arrival_date_str = arrival_time.strftime('%Y-%m-%d')
+
+    forecast_for_arrival = json['forecast']['forecastday'].find do |forecastday|
+      forecastday['date'] == arrival_date_str
+    end
+
+    return nil unless forecast_for_arrival
+
+    forecast_for_arrival['hour'].min_by do |hour|
+      (Time.parse(hour['time']) - arrival_time).abs
+    end
+  end
+
+  # Get daily weather
+  def self.get_daily_weather(coordinates)
+    conn = Faraday.new(url: 'http://api.weatherapi.com')
+    response = conn.get("/v1/forecast.json?key=#{ENV['WEATHER_API_KEY']}&q=#{coordinates.latitude},#{coordinates.longitude}")
+    json = JSON.parse(response.body)
+    json['forecast']['forecastday'].map do |day|
       {
         date: day['date'],
         sunrise: day['astro']['sunrise'],
@@ -26,8 +53,14 @@ class WeatherService
         icon: day['day']['condition']['icon']
       }
     end
+  end
 
-    hourly_weather = json['forecast']['forecastday'][0]['hour'].map do |hour|
+  # Get hourly weather
+  def self.get_hourly_weather(coordinates)
+    conn = Faraday.new(url: 'http://api.weatherapi.com')
+    response = conn.get("/v1/forecast.json?key=#{ENV['WEATHER_API_KEY']}&q=#{coordinates.latitude},#{coordinates.longitude}")
+    json = JSON.parse(response.body)
+    json['forecast']['forecastday'][0]['hour'].map do |hour|
       {
         time: hour['time'][11, 5],
         temperature: hour['temp_f'],
@@ -35,11 +68,5 @@ class WeatherService
         icon: hour['condition']['icon']
       }
     end
-
-    Weather.new(
-      current_weather:,
-      daily_weather:,
-      hourly_weather:
-    )
   end
 end
