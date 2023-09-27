@@ -9,4 +9,10 @@ class GeocodingService
 
     latitude && longitude ? Coordinates.new(latitude:, longitude:) : nil
   end
+
+  def self.fetch_directions(start_location, end_location)
+    conn = Faraday.new(url: 'http://www.mapquestapi.com')
+    response = conn.get("/directions/v2/route?key=#{ENV['MAPQUEST_API_KEY']}&from=#{start_location}&to=#{end_location}")
+    JSON.parse(response.body)
+  end
 end

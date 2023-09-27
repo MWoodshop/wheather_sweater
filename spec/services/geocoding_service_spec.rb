@@ -24,5 +24,21 @@ RSpec.describe GeocodingService do
         end
       end
     end
+
+    context 'when given two locations' do
+      it 'fetches directions' do
+        VCR.use_cassette('mapquest_cincinnati_to_denver_directions') do
+          directions = GeocodingService.fetch_directions('cincinnati,oh', 'denver,co')
+
+          expect(directions).to be_a(Hash)
+          expect(directions).to have_key('route')
+          expect(directions['route']).to have_key('distance')
+          expect(directions['route']).to have_key('formattedTime')
+          expect(directions['route']).to have_key('legs')
+          expect(directions['route']['legs'].first).to have_key('maneuvers')
+          expect(directions['route']['legs'].first['maneuvers'].first).to have_key('narrative')
+        end
+      end
+    end
   end
 end

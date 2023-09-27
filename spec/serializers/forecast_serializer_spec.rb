@@ -2,17 +2,20 @@ require 'rails_helper'
 
 RSpec.describe ForecastSerializer do
   describe '.format' do
-    it 'serializes a Weather object and coordinates into the expected format' do
+    it 'serializes current_weather, weather_at_eta, and coordinates into the expected format' do
       # Sample data
       current_weather = { temperature: 72.5, conditions: 'clear sky', icon: 'some_url' }
-      daily_weather = [{ date: '2023-09-26', max_temp: 72.5 }]
-      hourly_weather = [{ time: '12:00', temperature: 72.5 }]
+      weather_at_eta = { temperature: 75.0, conditions: 'partly cloudy', icon: 'another_url' }
+      daily_weather = []
+      hourly_weather = []
       coordinates = OpenStruct.new(latitude: 40.7128, longitude: -74.0060)
 
+      # Create a new Weather object
       weather = Weather.new(
         current_weather:,
         daily_weather:,
-        hourly_weather:
+        hourly_weather:,
+        weather_at_eta:
       )
 
       # Call the serializer
@@ -25,6 +28,7 @@ RSpec.describe ForecastSerializer do
                                type: 'forecast',
                                attributes: {
                                  current_weather:,
+                                 weather_at_eta:,
                                  daily_weather:,
                                  hourly_weather:,
                                  latitude: 40.7128,
